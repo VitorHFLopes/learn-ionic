@@ -1,8 +1,14 @@
 <ion-view>
 
   <ion-content>
-    <h1>{{response}}</h1>
-    <button data-ng-click="doPush()">PUSH</button>
+    <h3>{{response.data}}</h3>
+
+    <button data-ng-click="doPush()">PUSH</button> <br>
+    REQUEST ID <br>
+    <h4>{{response.meta.request_id}}</h4> <br>
+    STATUS <br>
+    <h4>{{response.meta.status}}</h4>
+
   </ion-content>
 
 </ion-view>

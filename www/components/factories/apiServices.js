@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('appModule')
 
 //Factory for communication with rest
 .factory('apiServices', function($http) {
