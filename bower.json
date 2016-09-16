@@ -6,6 +6,5 @@
     "ionic-platform-web-client": "^0.7.1"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7"
   }
 }
