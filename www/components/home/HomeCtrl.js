@@ -1,7 +1,7 @@
 angular.module('appModule')
 
-  .controller('HomeCtrl', function ($scope) {
+    .controller('HomeCtrl', function () {
 
-  })
+    })
 
 ;
