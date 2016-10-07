@@ -6,85 +6,52 @@ angular.module('appModule', [
 
     .run(function($ionicPlatform) {
 
+        //Start ready
         $ionicPlatform.ready(function () {
-            var push = new Ionic.Push({
-                "debug": true
-            });
 
-            push.register(function (token) {
-                console.log("My Device token:", token.token);
-                push.saveToken(token);  // persist the token in the Ionic Platform
-            });//end register
+            var beacons = [
+                {
+                    id: 'Candy',
+                    uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+                    major: 36926,
+                    minor: 6251
+                },
+                {
+                    id: 'Beetroot',
+                    uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+                    major: 13892,
+                    minor: 6227
+                },
+                {
+                    id: 'Lemon',
+                    uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+                    major: 26073,
+                    minor: 16050
+                }
+            ];
 
-            /**
-             * Function that creates a BeaconRegion data transfer object.
-             *
-             * @throws Error if the BeaconRegion parameters are not valid.
-             */
-            function createBeacon() {
+            for(var i = 0; i < beacons.length; i++) {
+                var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(
+                    beacons[i].id, beacons[i].uuid, beacons[i].major, beacons[i].minor
+                );
 
-                var uuid = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D'; // mandatory
-                var identifier = 'Lemon'; // mandatory
-                var major = 26073; // optional, defaults to wildcard if left empty
-                var minor = 16050; // optional, defaults to wildcard if left empty
+                var locationManager = cordova.plugins.locationManager;
 
-                // throws an error if the parameters are not valid
-                var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
+                /*locationManager.startRangingBeaconsInRegion(beaconRegion)
+                 .fail(function(e) {
+                 console.error(e);
+                 })
+                 .done();*/
 
-                return beaconRegion;
+                locationManager.startMonitoringForRegion(beaconRegion)
+                    .fail(function(e) {
+                        console.error(e);
+                    })
+                    .done();
             }
 
-            var logToDom = function (message) {
-                var e = document.createElement('label');
-                e.innerText = message;
-
-                var br = document.createElement('br');
-                var br2 = document.createElement('br');
-                document.body.appendChild(e);
-                document.body.appendChild(br);
-                document.body.appendChild(br2);
-
-                window.scrollTo(0, window.document.height);
-            };
-
-            var delegate = new cordova.plugins.locationManager.Delegate();
-
-            delegate.didDetermineStateForRegion = function (pluginResult) {
-
-                logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
-
-                cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: '
-                    + JSON.stringify(pluginResult));
-            };
-
-            delegate.didStartMonitoringForRegion = function (pluginResult) {
-                console.log('didStartMonitoringForRegion:', pluginResult);
-
-                logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
-            };
-
-            delegate.didRangeBeaconsInRegion = function (pluginResult) {
-                logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
-            };
-
-            var uuid = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D'; // mandatory
-            var identifier = 'Lemon'; // mandatory
-            var major = 26073; // optional, defaults to wildcard if left empty
-            var minor = 16050; // optional, defaults to wildcard if left empty
-            var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
-
-            cordova.plugins.locationManager.setDelegate(delegate);
-
-            // required in iOS 8+
-            cordova.plugins.locationManager.requestWhenInUseAuthorization();
-            // or cordova.plugins.locationManager.requestAlwaysAuthorization()
-
-            cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
-                .fail(function(e) { console.error(e); })
-                .done();
-
-
-        });//end ready
+        });
+        //End ready
 
     })
 

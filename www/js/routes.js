@@ -1,17 +1,17 @@
 angular.module('appModule')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/home');
 
-    $stateProvider
+        $stateProvider
 
-      .state('home', {
-        url: '/home',
-        templateUrl: 'components/home/home.html',
-        controller: 'HomeCtrl'
-      });
+            .state('home', {
+                url: '/home',
+                templateUrl: 'components/home/home.html',
+                controller: 'HomeCtrl'
+            });
 
-  })
+    })
 
 ;
