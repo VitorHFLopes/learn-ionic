@@ -1,7 +1,7 @@
 {
-  "name": "ionic-project",
-  "version": "1.1.1",
-  "description": "An Ionic project",
+  "name": "LearnIonic",
+  "version": "1.0.0",
+  "description": "A project to learn some basic of ionic and it's plugins",
   "dependencies": {
     "@ionic/cloud": "^0.8.2",
     "angular-ui-router": "^0.3.1",
