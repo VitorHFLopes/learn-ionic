@@ -1,21 +1,25 @@
 <ion-view>
 
-  <ion-content>
+    <ion-header-bar>
+        <div class="bar bar-header bar-dark">
+            <h1 class="title">Please select a project</h1>
+        </div>
+    </ion-header-bar>
 
-      <div class="row">
-          <button class="button button-balanced col-50" ng-click="toShowBeacons()">Mostrar Beacons</button>
-          <button class="button button-assertive col-50" ng-click="toHideBeacons()">Esconder Beacons</button>
-      </div>
+    <ion-content>
 
-      <ion-list ng-if="showBeacon" class="list">
-          <ion-item ng-repeat="beacon in beaconArray">
-              <span class="item item-divider"><b>Beacon: </b>{{beacon.region.identifier}}</span>
-              <span class="item"><b>UUID: </b>{{beacon.region.uuid}}</span>
-              <span class="item"><b>MAJOR:</b> {{beacon.region.major}}</span>
-              <span class="item"><b>MINOR:</b> {{beacon.region.minor}}</span>
-          </ion-item>
-      </ion-list>
+        <div class="card" ng-click="goToProject('ocr')">
+            <div class="item item-text-wrap">
+                OCR - Optical Characters Recognition
+            </div>
+        </div>
 
-  </ion-content>
+        <div class="card" ng-click="goToProject('beacon')">
+            <div class="item item-text-wrap">
+                BEACON
+            </div>
+        </div>
+
+    </ion-content>
 
 </ion-view>

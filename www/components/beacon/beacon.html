@@ -1,0 +1,21 @@
+<ion-view>
+
+  <ion-content>
+
+      <div class="row">
+          <button class="button button-balanced col-50" ng-click="toShowBeacons()">Mostrar Beacons</button>
+          <button class="button button-assertive col-50" ng-click="toHideBeacons()">Esconder Beacons</button>
+      </div>
+
+      <ion-list ng-if="showBeacon" class="list">
+          <ion-item ng-repeat="beacon in beaconArray">
+              <span class="item item-divider"><b>Beacon: </b>{{beacon.region.identifier}}</span>
+              <span class="item"><b>UUID: </b>{{beacon.region.uuid}}</span>
+              <span class="item"><b>MAJOR:</b> {{beacon.region.major}}</span>
+              <span class="item"><b>MINOR:</b> {{beacon.region.minor}}</span>
+          </ion-item>
+      </ion-list>
+
+  </ion-content>
+
+</ion-view>
