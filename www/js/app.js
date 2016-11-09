@@ -1,6 +1,7 @@
 angular.module('appModule', [
     'ionic',
     'ionic.cloud',
+    'ngStorage',
     'ui.router'
 ])
 

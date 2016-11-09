@@ -77,4 +77,8 @@
     </plugin>
     <plugin name="com.unarin.cordova.beacon" spec="https://github.com/petermetz/cordova-plugin-ibeacon.git" />
     <plugin name="cordova.plugins.diagnostic" spec="~3.2.2" />
+    <plugin name="cordova-plugin-facebook4" spec="~1.7.4">
+        <variable name="APP_ID" value="720998174720166" />
+        <variable name="APP_NAME" value="br.com.learnionic.vitorhflopes" />
+    </plugin>
 </widget>
