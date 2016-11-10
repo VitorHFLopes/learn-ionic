@@ -2,20 +2,23 @@ angular.module('appModule')
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/login');
 
         $stateProvider
+
+            .state('login', {
+                url: '/login',
+                templateUrl: 'components/login/login.html',
+                controller: 'LoginCtrl',
+                resolve: {
+                    responseGoogle: 'CheckLoginService'
+                }
+            })
 
             .state('home', {
                 url: '/home',
                 templateUrl: 'components/home/home.html',
                 controller: 'HomeCtrl'
-            })
-
-            .state('login', {
-                url: '/login',
-                templateUrl: 'components/login/login.html',
-                controller: 'LoginCtrl'
             })
 
             .state('beacon', {

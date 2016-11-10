@@ -1,17 +1,16 @@
 angular.module('appModule')
 
 //Factory for communication with rest
-.factory('apiServices', function($http) {
+.factory('ApiServices', function($http) {
 
     return{
 
-        get: (function(serviceUrl, token) {
+        get: (function(serviceUrl) {
             return $http({
                 url: serviceUrl,
                 method: 'GET',
                 headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + token
+                  'Content-Type': 'application/json'
                 }
             });
         }),
