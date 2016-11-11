@@ -1,14 +1,17 @@
 angular.module('appModule')
 
-    .factory('CheckLoginService', function (ApiServices) {
+    .service('CheckLoginService', function () {
 
-        var google = ApiServices.get('www.google.com.br');
+        function facebookLogin() {
+            facebookConnectPlugin.login(["public_profile"], function (response) {
+                console.log(response);
+                return response.status;
+            });
+        }
 
-        return google.then(function () {
-            console.log('success');
-        }, function () {
-            console.log('error');
-        });
+        return {
+            facebookLogin: facebookLogin
+        }
 
     })
 

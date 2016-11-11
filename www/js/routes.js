@@ -9,10 +9,7 @@ angular.module('appModule')
             .state('login', {
                 url: '/login',
                 templateUrl: 'components/login/login.html',
-                controller: 'LoginCtrl',
-                resolve: {
-                    responseGoogle: 'CheckLoginService'
-                }
+                controller: 'LoginCtrl'
             })
 
             .state('home', {
