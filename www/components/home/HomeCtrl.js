@@ -11,6 +11,10 @@ angular.module('appModule')
             console.log(error);
         });
 
+        $scope.goToProject = function (project) {
+            $state.go(project)
+        };
+
     })
 
 ;

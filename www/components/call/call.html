@@ -1,0 +1,33 @@
+<ion-view>
+
+    <ion-header-bar>
+        <div class="bar bar-header bar-dark">
+            <h1 class="title">Project - Call</h1>
+        </div>
+    </ion-header-bar>
+
+    <ion-content>
+
+        <div class="col">
+
+            <div class="list row">
+                <label class="item item-input">
+                    <input type="tel" placeholder="Phone" ng-model="phone">
+                </label>
+            </div>
+
+            <div class="row">{{phone}}</div>
+
+            <br>
+
+            <button class="button button-royal row" ng-click="makeACall(phone)">MAKE A CALL</button>
+
+            <br>
+
+            <button class="button button-dark row" ng-click="goBack('home')">BACK</button>
+
+        </div>
+
+    </ion-content>
+
+</ion-view>

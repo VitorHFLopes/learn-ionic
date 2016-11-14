@@ -9,6 +9,10 @@ angular.module('appModule')
             });
         };
 
+        $scope.goHome = function () {
+            $state.go('home');
+        };
+
     })
 
 ;

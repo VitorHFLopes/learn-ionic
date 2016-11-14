@@ -18,17 +18,26 @@ angular.module('appModule')
                 controller: 'HomeCtrl'
             })
 
+            //TODO test inherit states
+
             .state('beacon', {
                 url: '/beacon',
                 templateUrl: 'components/beacon/beacon.html',
                 controller: 'BeaconCtrl'
             })
 
-            .state('ocr', {
-                url: '/ocr',
-                templateUrl: 'components/ocr/ocr.html',
-                controller: 'OcrCtrl'
-            });
+            .state('call', {
+                url: '/call',
+                templateUrl: 'components/call/call.html',
+                controller: 'CallCtrl'
+            })
+
+            .state('email', {
+                url: '/email',
+                templateUrl: 'components/email/email.html',
+                controller: 'EmailCtrl'
+            })
+        ;
 
     })
 
