@@ -2,14 +2,40 @@ angular.module('appModule')
 
     .controller('BeaconCtrl', function ($ionicPlatform, $ionicPopup, $scope) {
 
-
-        $scope.beaconArray = [];
         $scope.showBeacon = false;
+        $scope.beaconArray = [];
+
+        //Initialize beacons objects
+        $scope.nearestBeacon = {
+            uuid: '',
+            major: '',
+            minor: '',
+            proximity: ''
+        };
+
+        var nearestBeaconFound = {
+            uuid: '',
+            major: '',
+            minor: '',
+            proximity: ''
+        };
+
+        $scope.updateBeacons = function () {
+            $scope.showBeacon = true;
+        };
 
         $ionicPlatform.ready(function () {
 
+            var locationManager = cordova.plugins.locationManager;
+
+            //Cria uma região que monitora os beacons que possuam o uuid, major ou minor passados a função
+            var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(
+                'Regiao', 'B9407F30-F5F8-466E-AFF9-25556B57FE6D', 36926
+            );
+
+            //Check bluetooth availability
             cordova.plugins.locationManager.isBluetoothEnabled()
-                .then(function(isBluetoothEnabled){ //Retorna um boolean
+                .then(function(isBluetoothEnabled){ //Return a boolean
                     if (!isBluetoothEnabled) {
                         $ionicPopup.confirm({
                             title: 'Por favor, ligue o bluetooth',
@@ -24,7 +50,8 @@ angular.module('appModule')
                 .fail(function(e) { console.error(e); })
                 .done();
 
-            cordova.plugins.diagnostic.isLocationEnabled(function (isLocationEnabled) { //Retorna um boolean
+            //Check location - GPS availability
+            cordova.plugins.diagnostic.isLocationEnabled(function (isLocationEnabled) { //Return a boolean
                 if(!isLocationEnabled) {
                     $ionicPopup.confirm({
                         title: 'Por favor, ligue a sua localização',
@@ -35,39 +62,60 @@ angular.module('appModule')
                         }
                     })
                 }
-            }, function (errorMessage) { //Retorna uma string com o erro
+            }, function (errorMessage) { //Return a string with the error
                 console.error(errorMessage);
             });
 
             var delegate = new cordova.plugins.locationManager.Delegate();
 
-            //Verifica se startou a regiao de monitoramento
+            //Check if a monitoring region was started
             delegate.didStartMonitoringForRegion = function(pluginResult) {
                 console.log('startou regiao', pluginResult);
             };
 
-            //Determina o estado atual do beacon, dentro ou fora da regiao de monitoramento
+            //Check what is the state of a device for the beacon specified region (inside or outside)
             delegate.didDetermineStateForRegion = function (pluginResult) {
                 console.log('determinou estado', pluginResult);
                 $scope.beaconArray.push(pluginResult);
             };
 
-            //Verifica se tem beacons por perto pela proximidade
-            /*delegate.didRangeBeaconsInRegion = function (pluginResult) {
+            //Check if there are beacons in range of a specified region
+            delegate.didRangeBeaconsInRegion = function (pluginResult) {
+                var beacons = pluginResult.beacons;
+
+                for(var i = 0; i < beacons.length; i++) {
+                    if(beacons[i].proximity === 'ProximityImmediate') {
+                        if(beacons[i].minor !== nearestBeaconFound.minor) {
+                            nearestBeaconFound = beacons[i];
+                            $scope.$apply(function(){
+                                $scope.nearestBeacon = nearestBeaconFound;
+                            });
+                        }
+                    }
+                }
+
                 console.log('beacons no range', pluginResult);
-            };*/
+            };
 
             cordova.plugins.locationManager.setDelegate(delegate);
 
+            $scope.stopRangingBeacons = function () {
+                locationManager.stopRangingBeaconsInRegion(beaconRegion)
+                    .fail(function (e) {
+                        console.error(e);
+                    })
+                    .done();
+            };
+
+            $scope.startRangingBeacons = function () {
+                locationManager.startRangingBeaconsInRegion(beaconRegion)
+                    .fail(function (e) {
+                        console.error(e);
+                    })
+                    .done();
+            }
+
         });
-
-        $scope.toShowBeacons = function () {
-            $scope.showBeacon = true;
-        };
-
-        $scope.toHideBeacons = function () {
-            $scope.showBeacon = false;
-        };
 
     })
 

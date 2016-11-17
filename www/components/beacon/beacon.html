@@ -3,17 +3,39 @@
   <ion-content>
 
       <div class="row">
-          <button class="button button-balanced col-50" ng-click="toShowBeacons()">Mostrar Beacons</button>
-          <button class="button button-assertive col-50" ng-click="toHideBeacons()">Esconder Beacons</button>
+          <button class="button button-dark" style="width: 100%" ng-click="updateBeacons()">Atualizar Beacons</button>
       </div>
 
-      <ion-list ng-if="showBeacon" class="list">
-          <ion-item ng-repeat="beacon in beaconArray">
-              <span class="item item-divider"><b>Beacon: </b>{{beacon.region.identifier}}</span>
+      <br>
+
+      <div class="row">
+          <button class="button button-positive col-50" ng-click="startRangingBeacons()">Start Ranging</button>
+          <button class="button button-assertive col-50" ng-click="stopRangingBeacons()">Stop Ranging</button>
+      </div>
+
+      <ion-list class="list" id="beacons-list">
+
+          <!--Monitoring Beacons-->
+          <ion-item ng-repeat="beacon in beaconArray" ng-if="showBeacon">
+              <span class="item item-divider"><b>Região: </b>{{beacon.region.identifier}}</span>
               <span class="item"><b>UUID: </b>{{beacon.region.uuid}}</span>
-              <span class="item"><b>MAJOR:</b> {{beacon.region.major}}</span>
-              <span class="item"><b>MINOR:</b> {{beacon.region.minor}}</span>
+              <span class="item"><b>MAJOR: </b>{{beacon.region.major}}</span>
+              <span class="item"><b>MINOR: </b>{{beacon.region.minor}}</span>
           </ion-item>
+
+          <!--Ranging Beacons-->
+          <ion-item>
+              <div class="item item-thumbnail-left" ng-if="nearestBeacon.minor !== ''">
+                  <img src="img/candy.png" ng-if="nearestBeacon.minor == 6251"/>
+                  <img src="img/beetroot.png" ng-if="nearestBeacon.minor == 6227"/>
+                  <img src="img/lemon.png" ng-if="nearestBeacon.minor == 16050"/>
+                  <span class="item"><b>UUID: </b>{{nearestBeacon.uuid}}</span>
+                  <span class="item"><b>MAJOR: </b>{{nearestBeacon.major}}</span>
+                  <span class="item"><b>MINOR: </b>{{nearestBeacon.minor}}</span>
+                  <span class="item"><b>PROXIMIDADE: </b>{{nearestBeacon.proximity}}</span>
+              </div>
+          </ion-item>
+
       </ion-list>
 
   </ion-content>
