@@ -1,7 +1,7 @@
 <ion-view>
 
     <ion-header-bar>
-        <i class="ion-android-arrow-back" ng-click="goBack('home')"></i>
+        <i class="ion-android-arrow-back" data-ng-click="goBack('home')"></i>
 
         <div class="bar bar-header bar-dark">
             <h1 class="title">Project - Email</h1>
@@ -14,7 +14,7 @@
 
             <div class="list row">
                 <label class="item item-input">
-                    <input type="tel" placeholder="Email" ng-model="email">
+                    <input type="tel" placeholder="Email" data-ng-model="email">
                 </label>
             </div>
 
@@ -22,11 +22,11 @@
 
             <br>
 
-            <a class="button button-royal row" ng-href="mailto:{{email}}">OPEN EMAIL APP</a>
+            <a class="button button-royal row" data-ng-href="mailto:{{email}}">OPEN EMAIL APP</a>
 
             <br>
 
-            <button class="button button-dark row" ng-click="goBack('home')">BACK</button>
+            <button class="button button-dark row" data-ng-click="goBack('home')">BACK</button>
 
         </div>
 

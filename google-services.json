@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1024840356468",
+    "project_id": "br-com-learnionic-vitorhflopes"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024840356468:android:9bbb62ed79d5e722",
+        "android_client_info": {
+          "package_name": "br.com.learnionic.vitorhflopes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024840356468-pma2e7csaaktae6jg669onhdl6c050qv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.learnionic.vitorhflopes",
+            "certificate_hash": "25E10F14CAAD05A1F39DD00EB79FE7EF1BB84A63"
+          }
+        },
+        {
+          "client_id": "1024840356468-c1cq3t3glldq4av3cc038p0ib1kluilo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe4FOzRFmRZ-TDRPWx-RKOpPvOwgo5_bI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

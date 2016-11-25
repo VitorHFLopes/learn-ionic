@@ -10,6 +10,8 @@ angular.module('appModule', [
         //Start ready
         $ionicPlatform.ready(function () {
 
+            window.ga.startTrackerWithId('UA-88009076-1', 5);
+
             /*var beacons = [
                 {
                     id: 'Candy',

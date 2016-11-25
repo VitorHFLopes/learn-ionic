@@ -1,17 +1,13 @@
 angular.module('appModule')
 
-    .controller('HomeCtrl', function ($q, $scope, $state, LocalStorage) {
+    .controller('HomeCtrl', function ($scope, $state, DataStorage) {
 
-        var isUserLogged = LocalStorage.get('userLogged');
-        var isUserLoggedWithFacebook = false;
+        window.ga.trackView('Home');
 
-        facebookConnectPlugin.getLoginStatus(function success(response) {
-            isUserLoggedWithFacebook = true;
-        }, function failure(error) {
-            console.log(error);
-        });
+        $scope.loggedUserWithGooglePlus = DataStorage.get('googlePlusBasicData');
 
         $scope.goToProject = function (project) {
+            window.ga.trackEvent('Projects', 'Go To Project: ' + project);
             $state.go(project)
         };
 
