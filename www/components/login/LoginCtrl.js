@@ -1,6 +1,11 @@
 angular.module('appModule')
 
-    .controller('LoginCtrl', function ($scope, $state, DataStorage, GoogleAnalyticsAbstraction) {
+    .controller('LoginCtrl', function ($ionicAuth, $ionicPopup, $ionicUser, $scope, $state, DataStorage, GoogleAnalyticsAbstraction) {
+
+        $scope.user = {
+            email: '',
+            password: ''
+        };
 
         $scope.facebookSignIn = function () {
             GoogleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
@@ -20,6 +25,26 @@ angular.module('appModule')
             }, function (errorStatus) { //ERROR
                 console.error(errorStatus);
             });
+        };
+
+        $scope.ionicSignUp = function (user) {
+
+            $ionicAuth.signup(user).then(function () {
+                $ionicAuth.login('basic', user).then(function () {
+                    $state.go('home');
+                });
+            }, function (errors) {
+                errors = errors.details;
+                for (var i = 0; i < errors.length; i++) {
+                    if (errors[i] === 'conflict_email') {
+                        $ionicAuth.login('basic', user).then(function () {
+                            $state.go('home');
+                        });
+                    } else {
+                        alert(errors[i]);
+                    }
+                }
+            })
         };
 
         $scope.goHome = function () {

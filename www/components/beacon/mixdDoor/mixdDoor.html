@@ -1,0 +1,25 @@
+<ion-view>
+
+    <ion-content>
+
+        <div class="row">
+            <button class="button button-positive col-50" data-ng-click="startMonitoringBeacons()">Start Monitoring</button>
+            <button class="button button-assertive col-50" data-ng-click="stopMonitoringBeacons()">Stop Monitoring</button>
+        </div>
+
+        <div class="card">
+            <div class="item item-divider">
+                Status
+            </div>
+            <div class="item item-text-wrap" data-ng-if="stateInRegion.state === 'CLRegionStateInside'">
+                Your are inside of a monitored area, please back off!
+            </div>
+
+            <div class="item item-text-wrap" data-ng-if="stateInRegion.state !== 'CLRegionStateInside'">
+                It's all clear!
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

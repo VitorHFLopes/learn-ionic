@@ -37,6 +37,12 @@ angular.module('appModule')
                 templateUrl: 'components/email/email.html',
                 controller: 'EmailCtrl'
             })
+
+            .state('mixdDoor', {
+                url: '/mixdDoor',
+                templateUrl: 'components/beacon/mixdDoor/mixdDoor.html',
+                controller: 'MixdDoorCtrl'
+            })
         ;
 
     })
