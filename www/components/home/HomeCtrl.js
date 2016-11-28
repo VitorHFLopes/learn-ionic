@@ -1,13 +1,13 @@
 angular.module('appModule')
 
-    .controller('HomeCtrl', function ($scope, $state, DataStorage) {
+    .controller('HomeCtrl', function ($ionicPlatform, $scope, $state, DataStorage, GoogleAnalyticsAbstraction) {
 
-        window.ga.trackView('Home');
+        GoogleAnalyticsAbstraction.trackView('Home');
 
         $scope.loggedUserWithGooglePlus = DataStorage.get('googlePlusBasicData');
 
         $scope.goToProject = function (project) {
-            window.ga.trackEvent('Projects', 'Go To Project: ' + project);
+            GoogleAnalyticsAbstraction.trackEvent('Projects', 'Go To Project: ' + project);
             $state.go(project)
         };
 

@@ -1,8 +1,8 @@
 angular.module('appModule')
 
-    .controller('BeaconCtrl', function ($ionicPlatform, $ionicPopup, $scope) {
+    .controller('BeaconCtrl', function ($ionicPlatform, $ionicPopup, $scope, GoogleAnalyticsAbstraction) {
 
-        window.ga.trackView('Beacons');
+        GoogleAnalyticsAbstraction.trackView('Beacons');
 
         $scope.showBeacon = false;
         $scope.beaconArray = [];
@@ -90,7 +90,7 @@ angular.module('appModule')
                         if(beacons[i].minor !== nearestBeaconFound.minor) {
                             nearestBeaconFound = beacons[i];
                             $scope.$apply(function(){
-                                window.ga.trackEvent('User', 'Beacon Found');
+                                GoogleAnalyticsAbstraction.trackEvent('User', 'Beacon Found');
                                 $scope.nearestBeacon = nearestBeaconFound;
                             });
                         }

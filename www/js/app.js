@@ -5,12 +5,12 @@ angular.module('appModule', [
     'ui.router'
 ])
 
-    .run(function($ionicPlatform) {
+    .run(function($ionicPlatform, GoogleAnalyticsAbstraction) {
 
         //Start ready
         $ionicPlatform.ready(function () {
 
-            window.ga.startTrackerWithId('UA-88009076-1', 5);
+            GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 1);
 
             /*var beacons = [
                 {

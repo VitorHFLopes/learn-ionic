@@ -1,18 +1,18 @@
 angular.module('appModule')
 
-    .controller('CallCtrl', function ($scope, $state) {
+    .controller('CallCtrl', function ($scope, $state, GoogleAnalyticsAbstraction) {
 
-        window.ga.trackView('Call');
+        GoogleAnalyticsAbstraction.trackView('Call');
 
         $scope.phone = '11111111111';
         
         $scope.makeACall = function (phoneNumber) {
-            window.ga.trackEvent('User', 'Made a call');
+            GoogleAnalyticsAbstraction.trackEvent('User', 'Made a call');
             window.open('tel:' + phoneNumber, '_system');
         };
 
         $scope.goBack = function (state) {
-            window.ga.trackEvent('User', 'Back to Home');
+            GoogleAnalyticsAbstraction.trackEvent('User', 'Back to Home');
             $state.go(state);
         };
 

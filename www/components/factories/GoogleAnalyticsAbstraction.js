@@ -4,6 +4,23 @@ angular.module('appModule')
 
         /**
          * @description
+         * To start tracking Analytics
+         *
+         * @function startTrackerWithId
+         *
+         * @param {string} trackerId
+         * @param {number} dispatchIntervalInMinutes
+         * */
+        function _startTrackerWithId(trackerId, dispatchIntervalInMinutes) {
+            if(dispatchIntervalInMinutes) {
+                window.ga.startTrackerWithId(trackerId, dispatchIntervalInMinutes);
+            } else {
+                window.ga.startTrackerWithId(trackerId);
+            }
+        }
+
+        /**
+         * @description
          * To track a Screen (PageView)
          *
          * @function trackView
@@ -243,6 +260,7 @@ angular.module('appModule')
         }
 
         return {
+            startTrackerWithId: _startTrackerWithId,
             trackView: _trackView,
             trackViewWithCampaign: _trackViewWithCampaign,
             trackViewNewSession: _trackViewNewSession,

@@ -1,14 +1,14 @@
 angular.module('appModule')
 
-    .controller('EmailCtrl', function ($scope, $state) {
+    .controller('EmailCtrl', function ($scope, $state, GoogleAnalyticsAbstraction) {
 
-        window.ga.trackView('Email');
-        window.ga.trackEvent('User', 'Send an email');
+        GoogleAnalyticsAbstraction.trackView('Email');
+        GoogleAnalyticsAbstraction.trackEvent('User', 'Send an email');
 
         $scope.email = 'vitor@mixd.com.br';
 
         $scope.goBack = function (state) {
-            window.ga.trackEvent('User', 'Back to Home');
+            GoogleAnalyticsAbstraction.trackEvent('User', 'Back to Home');
             $state.go(state);
         };
         
