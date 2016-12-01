@@ -1,11 +1,11 @@
 angular.module('appModule')
 
-    .controller('BeaconCtrl', function ($ionicPlatform, $ionicPopup, $scope, GoogleAnalyticsAbstraction) {
+    .controller('BeaconCtrl', function ($cordovaBeacon, $cordovaLocalNotification, $http, $ionicPlatform, $ionicPopup, $rootScope, $scope, GoogleAnalyticsAbstraction) {
 
         GoogleAnalyticsAbstraction.trackView('Beacons');
 
         $scope.showBeacon = false;
-        $scope.beaconArray = [];
+        $scope.beaconRegion = {};
 
         //Initialize beacons objects
         $scope.nearestBeacon = {
@@ -28,7 +28,8 @@ angular.module('appModule')
 
         $ionicPlatform.ready(function () {
 
-            var locationManager = cordova.plugins.locationManager;
+            //PRIMEIRA IMPLEMENTACAO BEACON
+            /*var locationManager = cordova.plugins.locationManager;
 
             //Cria uma região que monitora os beacons que possuam o uuid, major ou minor passados a função
             var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(
@@ -78,7 +79,28 @@ angular.module('appModule')
             //Check what is the state of a device for the beacon specified region (inside or outside)
             delegate.didDetermineStateForRegion = function (pluginResult) {
                 console.log('determinou estado', pluginResult);
-                $scope.beaconArray.push(pluginResult);
+                cordova.plugins.locationManager.enableDebugNotifications();
+                cordova.plugins.locationManager.enableDebugLogs();
+
+                $scope.$apply(function () {
+                    $scope.beaconRegion = pluginResult;
+                });
+
+                if(pluginResult.state === 'CLRegionStateInside') {
+                    // $http.post('http://porta.mixd.com.br/open-door.php').then(function () {});
+                    $cordovaLocalNotification.schedule({
+                        id: 1,
+                        title: "WELCOME",
+                        text: "You just enter in region!"
+                    })
+                } else if (pluginResult.state === 'CLRegionStateOutside') {
+                    $cordovaLocalNotification.schedule({
+                        id: 1,
+                        title: "BYE, BYE",
+                        text: "See ya soon!"
+                    })
+                }
+
             };
 
             //Check if there are beacons in range of a specified region
@@ -102,6 +124,15 @@ angular.module('appModule')
 
             cordova.plugins.locationManager.setDelegate(delegate);
 
+            //Control status ranging
+            $scope.startRangingBeacons = function () {
+                locationManager.startRangingBeaconsInRegion(beaconRegion)
+                    .fail(function (e) {
+                        console.error(e);
+                    })
+                    .done();
+            };
+
             $scope.stopRangingBeacons = function () {
                 locationManager.stopRangingBeaconsInRegion(beaconRegion)
                     .fail(function (e) {
@@ -110,13 +141,63 @@ angular.module('appModule')
                     .done();
             };
 
-            $scope.startRangingBeacons = function () {
-                locationManager.startRangingBeaconsInRegion(beaconRegion)
+            //Control status monitoring
+            $scope.startMonitoringBeacons = function () {
+                locationManager.startMonitoringForRegion(beaconRegion)
                     .fail(function (e) {
                         console.error(e);
                     })
                     .done();
-            }
+            };
+
+            $scope.stopMonitoringBeacons = function () {
+                locationManager.stopRangingBeaconsInRegion(beaconRegion)
+                    .fail(function (e) {
+                        console.error(e);
+                    })
+                    .done();
+            };*/
+            //FIM PRIMEIRA IMPLEMENTACAO BEACON
+
+            //NOVA IMPLEMENTACAO BEACON
+            var beaconRegion = $cordovaBeacon.createBeaconRegion('Sede MIXD', 'B9407F30-F5F8-466E-AFF9-25556B57FE6D', 36926, 6251, true);
+
+            $scope.startMonitoringBeacons = function () {
+                $cordovaBeacon.getAuthorizationStatus().then(function (response) {
+                    if(response.authorizationStatus === 'AuthorizationStatusAuthorized') {
+                        $cordovaBeacon.startMonitoringForRegion(beaconRegion);
+                    }
+                    //TODO else solicite a autorizacao
+                });
+            };
+
+            $scope.stopMonitoringBeacons = function () {
+                return $cordovaBeacon.stopMonitoringForRegion(beaconRegion);
+            };
+
+            $cordovaBeacon.setCallbackDidStartMonitoringForRegion(function (pluginResult) {
+                console.log(pluginResult);
+            });
+
+            $cordovaBeacon.setCallbackDidEnterRegion(function (pluginResult) {
+                $scope.beaconRegion = pluginResult;
+                $cordovaLocalNotification.schedule({
+                    id: 1,
+                    title: "WELCOME",
+                    text: "You just enter in region!"
+                })
+            });
+
+            $cordovaBeacon.setCallbackDidExitRegion(function () {
+                $scope.beaconRegion = {};
+                $cordovaLocalNotification.schedule({
+                    id: 1,
+                    title: "Bye, Bye",
+                    text: "See ya soon!"
+                })
+            });
+
+            //FIM NOVA IMPLEMENTACAO BEACON
 
         });
 

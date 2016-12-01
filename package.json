@@ -20,22 +20,53 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard",
     {
+      "locator": "https://github.com/petermetz/cordova-plugin-ibeacon.git",
+      "id": "com.unarin.cordova.beacon"
+    },
+    {
+      "id": "phonegap-plugin-push",
+      "locator": "phonegap-plugin-push",
       "variables": {
         "SENDER_ID": "590768645143"
-      },
-      "locator": "phonegap-plugin-push",
-      "id": "phonegap-plugin-push"
+      }
+    },
+    "cordova.plugins.diagnostic",
+    {
+      "id": "cordova-plugin-facebook4",
+      "locator": "cordova-plugin-facebook4",
+      "variables": {
+        "APP_ID": "720998174720166",
+        "APP_NAME": "br.com.learnionic.vitorhflopes"
+      }
+    },
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-googleplus",
+    "cordova-plugin-google-analytics",
+    "cordova-plugin-device",
+    "cordova-plugin-app-event",
+    {
+      "locator": "https://github.com/katzer/cordova-plugin-local-notifications.git",
+      "id": "de.appplant.cordova.plugin.local-notification"
+    },
+    {
+      "locator": "https://github.com/Red-Folder/bgs-core.git",
+      "id": "com.red_folder.phonegap.plugin.backgroundservice"
     }
   ],
   "cordovaPlatforms": [
     "ios",
-    "android"
+    "android",
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    },
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
   ]
 }

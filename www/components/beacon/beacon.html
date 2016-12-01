@@ -3,24 +3,32 @@
   <ion-content>
 
       <div class="row">
-          <button class="button button-dark" style="width: 100%" data-ng-click="updateBeacons()">Atualizar Beacons</button>
+          <button class="button button-dark" style="width: 100%" data-ng-click="getAuthorizationStatus()">Atualizar Beacons</button>
       </div>
 
       <br>
 
+      <!--<div class="row">
+          <button class="button button-positive col-50" data-ng-click="startRangingBeacons()">Start Ranging Beacons</button>
+          <button class="button button-assertive col-50" data-ng-click="stopRangingBeacons()">Stop Ranging Beacons</button>
+      </div>-->
+
+      <br>
+
       <div class="row">
-          <button class="button button-positive col-50" data-ng-click="startRangingBeacons()">Start Ranging</button>
-          <button class="button button-assertive col-50" data-ng-click="stopRangingBeacons()">Stop Ranging</button>
+          <button class="button button-positive col-50" data-ng-click="startMonitoringBeacons()">Start Monitoring Beacons</button>
+          <button class="button button-assertive col-50" data-ng-click="stopMonitoringBeacons()">Stop Monitoring Beacons</button>
       </div>
 
       <ion-list class="list" id="beacons-list">
 
           <!--Monitoring Beacons-->
-          <ion-item data-ng-repeat="beacon in beaconArray" data-ng-if="showBeacon">
-              <span class="item item-divider"><b>Região: </b>{{beacon.region.identifier}}</span>
-              <span class="item"><b>UUID: </b>{{beacon.region.uuid}}</span>
-              <span class="item"><b>MAJOR: </b>{{beacon.region.major}}</span>
-              <span class="item"><b>MINOR: </b>{{beacon.region.minor}}</span>
+          <ion-item>
+              <span class="item item-divider"><b>Região: </b>{{beaconRegion.region.identifier}}</span>
+              <span class="item"><b>UUID: </b>{{beaconRegion.region.uuid}}</span>
+              <span class="item"><b>MAJOR: </b>{{beaconRegion.region.major}}</span>
+              <span class="item"><b>MINOR: </b>{{beaconRegion.region.minor}}</span>
+              <span class="item"><b>ESTADO: </b>{{beaconRegion.state}}</span>
           </ion-item>
 
           <!--Ranging Beacons-->

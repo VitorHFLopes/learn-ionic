@@ -3,7 +3,8 @@ angular.module('appModule', [
     'ionic.cloud',
     'ngStorage',
     'ui.router',
-    'angularMoment'
+    'angularMoment',
+    'ngCordova'
 ])
 
     .config(function($ionicCloudProvider) {
@@ -15,10 +16,18 @@ angular.module('appModule', [
     })
 
 
-    .run(function($ionicPlatform, GoogleAnalyticsAbstraction) {
+    .run(function($ionicPlatform, amMoment, GoogleAnalyticsAbstraction) {
+
+        amMoment.changeLocale('pt-br');
 
         //Start ready
         $ionicPlatform.ready(function () {
+
+            backgroundService.registerForBootStart(function (success) {
+               console.log(success);
+            }, function (error) {
+                console.log(error);
+            });
 
             GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
 

@@ -5,7 +5,7 @@
         An Ionic Framework and Cordova project for testing
     </description>
     <author email="vitor.automec@hotmail.com" href="">
-      Vitor Hugo F. Lopes
+        Vitor Hugo F. Lopes
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -90,4 +90,5 @@
         <variable name="REVERSED_CLIENT_ID" value="myreversedclientid" />
     </plugin>
     <plugin name="cordova-plugin-google-analytics" spec="~1.7.1" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications.git" />
 </widget>

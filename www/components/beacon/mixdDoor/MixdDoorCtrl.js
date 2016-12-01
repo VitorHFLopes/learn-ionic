@@ -57,14 +57,29 @@ angular.module('appModule')
             //Check what is the state of a device for the beacon specified region (inside or outside)
             delegate.didDetermineStateForRegion = function (pluginResult) {
                 lastEnter = moment();
-                if((pluginResult.state === 'CLRegionStateInside') && (moment() > lastExit.add(2, 'minutes'))) {
-                    $http.post('http://porta.mixd.com.br/open-door.php').then(function () {
 
-                    });
+                $scope.$apply(function () {
+                   $scope.lastEnter = lastEnter;
+                   $scope.lastExit = lastExit;
+                });
+
+                if((pluginResult.state === 'CLRegionStateInside') && (lastEnter > lastExit)) {
+
+                    for(var i=0; i <= 1; i++) {
+                        $http.post('http://porta.mixd.com.br/open-door.php').then(function () {
+
+                        });
+                    }
+                    /*$ionicPopup.alert({
+                        title: 'Porta',
+                        template: 'Aberta'
+                    });*/
+
                 } else if(pluginResult.state === 'CLRegionStateOutside'){
-                    lastExit = moment();
+                    lastExit = moment().add(2, 'minutes');
                 }
-                console.log('determinou estado', pluginResult);
+
+                console.log('DETERMINOU ESTADO:', pluginResult.state);
             };
 
             cordova.plugins.locationManager.setDelegate(delegate);
@@ -79,7 +94,6 @@ angular.module('appModule')
 
             $scope.stopMonitoringBeacons = function () {
                 $scope.stateInRegion = {};
-                lastExit = moment().subtract(3, 'minutes');
                 locationManager.stopMonitoringForRegion(beaconRegion)
                     .fail(function (e) {
                         console.error(e);
