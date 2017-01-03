@@ -9,6 +9,16 @@
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="lib/fullcalendar/dist/fullcalendar.css"/>
+    <!-- jquery, moment, and angular have to get included before fullcalendar -->
+    <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-calendar/src/calendar.js"></script>
+    <script type="text/javascript" src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="lib/fullcalendar/dist/gcal.js"></script>
+    <script type="text/javascript" src="lib/fullcalendar/dist/lang/pt-br.js"></script>
+
     <!-- ionic/angularjs js -->
     <script src="lib/bluebird.min.js"></script>
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -28,6 +38,7 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/routes.js"></script>
+    <script src="js/angular-locale_pt-br.js"></script>
 
     <!--factories-->
     <!--<script src="components/factories/ApiServices.js"></script>-->
@@ -43,6 +54,7 @@
     <script src="components/login/LoginCtrl.js"></script>
     <script src="components/beacon/BeaconCtrl.js"></script>
     <script src="components/beacon/mixdDoor/MixdDoorCtrl.js"></script>
+    <script src="components/calendar/CalendarCtrl.js"></script>
     <script src="components/call/CallCtrl.js"></script>
     <script src="components/email/EmailCtrl.js"></script>
 </head>

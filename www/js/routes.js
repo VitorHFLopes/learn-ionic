@@ -43,6 +43,12 @@ angular.module('appModule')
                 templateUrl: 'components/beacon/mixdDoor/mixdDoor.html',
                 controller: 'MixdDoorCtrl'
             })
+
+            .state('calendar', {
+                url: '/calendar',
+                templateUrl: 'components/calendar/calendar.html',
+                controller: 'CalendarCtrl'
+            })
         ;
 
     })

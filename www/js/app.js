@@ -4,7 +4,8 @@ angular.module('appModule', [
     'ngStorage',
     'ui.router',
     'angularMoment',
-    'ngCordova'
+    'ngCordova',
+    'ui.calendar'
 ])
 
     .config(function($ionicCloudProvider) {
@@ -23,13 +24,7 @@ angular.module('appModule', [
         //Start ready
         $ionicPlatform.ready(function () {
 
-            backgroundService.registerForBootStart(function (success) {
-               console.log(success);
-            }, function (error) {
-                console.log(error);
-            });
-
-            GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
+            //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
 
             /*var beacons = [
                 {

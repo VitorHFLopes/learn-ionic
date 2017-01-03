@@ -91,4 +91,7 @@
     </plugin>
     <plugin name="cordova-plugin-google-analytics" spec="~1.7.1" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications.git" />
+    <plugin name="cordova-plugin-calendar" spec="https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git">
+        <variable name="CALENDAR_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>

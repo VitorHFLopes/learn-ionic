@@ -2,7 +2,7 @@ angular.module('appModule')
 
     .controller('BeaconCtrl', function ($cordovaBeacon, $cordovaLocalNotification, $http, $ionicPlatform, $ionicPopup, $rootScope, $scope, GoogleAnalyticsAbstraction) {
 
-        GoogleAnalyticsAbstraction.trackView('Beacons');
+        //GoogleAnalyticsAbstraction.trackView('Beacons');
 
         $scope.showBeacon = false;
         $scope.beaconRegion = {};

@@ -8,7 +8,7 @@ angular.module('appModule')
         };
 
         $scope.facebookSignIn = function () {
-            GoogleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
+            //GoogleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
             facebookConnectPlugin.login(["public_profile"], function (response) {
                 console.log(response);
                 $state.go('home');
@@ -16,7 +16,7 @@ angular.module('appModule')
         };
 
         $scope.googleSignIn = function () {
-            GoogleAnalyticsAbstraction.trackEvent('User', 'Google login');
+            //GoogleAnalyticsAbstraction.trackEvent('User', 'Google login');
             window.plugins.googleplus.login({
             }, function (response) { //SUCCESS
                 console.log(response);
@@ -48,7 +48,7 @@ angular.module('appModule')
         };
 
         $scope.goHome = function () {
-            GoogleAnalyticsAbstraction.trackEvent('User', 'Just enter');
+            //GoogleAnalyticsAbstraction.trackEvent('User', 'Just enter');
             $state.go('home');
         };
 
