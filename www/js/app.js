@@ -26,26 +26,21 @@ angular.module('appModule', [
 
             //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
 
-            /*var beacons = [
-                {
-                    id: 'Candy',
-                    uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-                    major: 36926,
-                    minor: 6251
-                },
-                {
-                    id: 'Beetroot',
-                    uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-                    major: 36926,
-                    minor: 6227
-                },
-                {
-                    id: 'Lemon',
-                    uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-                    major: 36926,
-                    minor: 16050
-                }
-            ];*/
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('d690b1c32d4e154eb7b3', {
+                encrypted: true
+            });
+
+            var channel = pusher.subscribe('rodobens-chat');
+            channel.bind('new-message', function(data) {
+                alert('An event was triggered with message: ' + data.text);
+            });
+
+            $ionicPlatform.on('pause', function () {
+                pusher.disconnect();
+            })
 
         });
         //End ready
