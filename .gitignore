@@ -7,3 +7,10 @@ plugins/
 .idea/
 .DS_Store
 www/css/*
+.editorconfig
+bower_components/
+www/.DS_Store
+npm-debug.log
+*.keystore
+www/test
+hooks/

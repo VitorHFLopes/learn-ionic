@@ -1,6 +1,6 @@
 angular.module('appModule')
 
-    .factory('GoogleAnalyticsAbstraction', function () {
+    .factory('googleAnalyticsAbstraction', function () {
 
         /**
          * @description

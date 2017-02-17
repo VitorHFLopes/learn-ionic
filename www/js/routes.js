@@ -39,8 +39,8 @@ angular.module('appModule')
             })
 
             .state('mixdDoor', {
-                url: '/mixdDoor',
-                templateUrl: 'components/beacon/mixdDoor/mixdDoor.html',
+                url: '/mixd-door',
+                templateUrl: 'components/beacon/mixd-door/mixd-door.html',
                 controller: 'MixdDoorCtrl'
             })
 

@@ -1,7 +1,7 @@
 angular.module('appModule')
 
 //Factory for communication with rest
-.factory('ApiServices', function($http) {
+.factory('apiServices', function($http) {
 
     return{
 

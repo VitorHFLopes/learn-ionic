@@ -1,6 +1,6 @@
 angular.module('appModule')
 
-    .factory('LocalStorage', function ($localStorage) {
+    .factory('localStorage', function ($localStorage) {
 
         var _get = function getLocalStorage(key) {
             return $localStorage[key];

@@ -1,6 +1,6 @@
 angular.module('appModule')
 
-    .factory('DataStorage', function () {
+    .factory('dataStorage', function () {
 
         var objData = {};
 

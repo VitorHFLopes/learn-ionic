@@ -1,8 +1,8 @@
 angular.module('appModule')
 
-    .controller('BeaconCtrl', function ($cordovaBeacon, $cordovaLocalNotification, $http, $ionicPlatform, $ionicPopup, $rootScope, $scope, GoogleAnalyticsAbstraction) {
+    .controller('BeaconCtrl', function ($cordovaBeacon, $cordovaLocalNotification, $http, $ionicPlatform, $ionicPopup, $rootScope, $scope, googleAnalyticsAbstraction) {
 
-        //GoogleAnalyticsAbstraction.trackView('Beacons');
+        //googleAnalyticsAbstraction.trackView('Beacons');
 
         $scope.showBeacon = false;
         $scope.beaconRegion = {};
@@ -112,7 +112,7 @@ angular.module('appModule')
                         if(beacons[i].minor !== nearestBeaconFound.minor) {
                             nearestBeaconFound = beacons[i];
                             $scope.$apply(function(){
-                                GoogleAnalyticsAbstraction.trackEvent('User', 'Beacon Found');
+                                googleAnalyticsAbstraction.trackEvent('User', 'Beacon Found');
                                 $scope.nearestBeacon = nearestBeaconFound;
                             });
                         }

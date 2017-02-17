@@ -1,6 +1,6 @@
 angular.module('appModule')
 
-    .controller('LoginCtrl', function ($ionicAuth, $ionicPopup, $ionicUser, $scope, $state, DataStorage, GoogleAnalyticsAbstraction) {
+    .controller('LoginCtrl', function ($ionicAuth, $ionicPopup, $ionicUser, $scope, $state, dataStorage, googleAnalyticsAbstraction) {
 
         $scope.user = {
             email: '',
@@ -8,7 +8,7 @@ angular.module('appModule')
         };
 
         $scope.facebookSignIn = function () {
-            //GoogleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
+            //googleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
             facebookConnectPlugin.login(["public_profile"], function (response) {
                 console.log(response);
                 $state.go('home');
@@ -16,11 +16,11 @@ angular.module('appModule')
         };
 
         $scope.googleSignIn = function () {
-            //GoogleAnalyticsAbstraction.trackEvent('User', 'Google login');
+            //googleAnalyticsAbstraction.trackEvent('User', 'Google login');
             window.plugins.googleplus.login({
             }, function (response) { //SUCCESS
                 console.log(response);
-                DataStorage.set('googlePlusBasicData', response);
+                dataStorage.set('googlePlusBasicData', response);
                 $state.go('home');
             }, function (errorStatus) { //ERROR
                 console.error(errorStatus);
@@ -48,7 +48,7 @@ angular.module('appModule')
         };
 
         $scope.goHome = function () {
-            //GoogleAnalyticsAbstraction.trackEvent('User', 'Just enter');
+            //googleAnalyticsAbstraction.trackEvent('User', 'Just enter');
             $state.go('home');
         };
 

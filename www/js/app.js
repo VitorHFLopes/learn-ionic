@@ -8,16 +8,18 @@ angular.module('appModule', [
     'ui.calendar'
 ])
 
-    .config(function($ionicCloudProvider) {
+    .config(function($ionicCloudProvider, $compileProvider) {
         $ionicCloudProvider.init({
             "core": {
                 "app_id": "e2ccf9f7"
             }
         });
+
+        $compileProvider.debugInfoEnabled(false); //Use this in production to improve performance
     })
 
 
-    .run(function($ionicPlatform, amMoment, GoogleAnalyticsAbstraction) {
+    .run(function($ionicPlatform, amMoment, googleAnalyticsAbstraction) {
 
         amMoment.changeLocale('pt-br');
 
@@ -25,22 +27,6 @@ angular.module('appModule', [
         $ionicPlatform.ready(function () {
 
             //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
-
-            // Enable pusher logging - don't include this in production
-            Pusher.logToConsole = true;
-
-            var pusher = new Pusher('d690b1c32d4e154eb7b3', {
-                encrypted: true
-            });
-
-            var channel = pusher.subscribe('rodobens-chat');
-            channel.bind('new-message', function(data) {
-                alert('An event was triggered with message: ' + data.text);
-            });
-
-            $ionicPlatform.on('pause', function () {
-                pusher.disconnect();
-            })
 
         });
         //End ready
