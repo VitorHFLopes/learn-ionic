@@ -7,30 +7,118 @@ angular.module('appModule', [
     'ngCordova',
     'ui.calendar'
 ])
+    .config(configApp)
+    .run(runApp);
 
-    .config(function($ionicCloudProvider, $compileProvider) {
-        $ionicCloudProvider.init({
-            "core": {
-                "app_id": "e2ccf9f7"
+function configApp($compileProvider, $ionicCloudProvider, $stateProvider) {
+
+    var cloudProviderOptions = {
+        core: {
+            app_id: 'e2ccf9f7'
+        }
+    };
+
+    $ionicCloudProvider.init(cloudProviderOptions);
+
+    $compileProvider.debugInfoEnabled(false); //Use this in production to improve performance
+
+    $stateProvider
+
+        .state('login', {
+            url: '/login',
+            templateUrl: 'components/login/login.html',
+            controller: 'LoginCtrl'
+        })
+
+        .state('app', {
+            url: '/app',
+            abstract: true,
+            templateUrl: 'components/menu/menu.html',
+            controller: 'MenuCtrl'
+        })
+
+        .state('app.home', {
+            url: '/home',
+            views: {
+                'menuContent': {
+                    templateUrl: 'components/home/home.html',
+                    controller: 'HomeCtrl'
+                }
             }
-        });
+        })
 
-        $compileProvider.debugInfoEnabled(false); //Use this in production to improve performance
-    })
+        .state('app.inheritance', {
+            url: '/inheritance',
+            abstract: true,
+            views: {
+                'menuContent': {
+                    templateUrl: 'components/inheritance/inheritance-template.html',
+                    controller: 'InheritanceCtrl'
+                }
+            }
+        })
 
+        .state('app.inheritance.home', {
+            url: '/home',
+            views: {
+                'inheritanceContent': {
+                    templateUrl: 'components/inheritance/home/inheritance-home.html',
+                    controller: 'InheritanceHomeCtrl'
+                }
+            }
+        })
 
-    .run(function($ionicPlatform, amMoment, googleAnalyticsAbstraction) {
+        .state('app.inheritance.next', {
+            url: '/next',
+            views: {
+                'inheritanceContent': {
+                    templateUrl: 'components/inheritance/next/inheritance-next.html',
+                    controller: 'InheritanceNextCtrl'
+                }
+            }
+        })
 
-        amMoment.changeLocale('pt-br');
+        .state('beacon', {
+            url: '/beacon',
+            templateUrl: 'components/beacon/beacon.html',
+            controller: 'BeaconCtrl'
+        })
 
-        //Start ready
-        $ionicPlatform.ready(function () {
+        .state('call', {
+            url: '/call',
+            templateUrl: 'components/call/call.html',
+            controller: 'CallCtrl'
+        })
 
-            //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
+        .state('email', {
+            url: '/email',
+            templateUrl: 'components/email/email.html',
+            controller: 'EmailCtrl'
+        })
 
-        });
-        //End ready
+        .state('mixdDoor', {
+            url: '/mixd-door',
+            templateUrl: 'components/beacon/mixd-door/mixd-door.html',
+            controller: 'MixdDoorCtrl'
+        })
 
-    })
+        .state('calendar', {
+            url: '/calendar',
+            templateUrl: 'components/calendar/calendar.html',
+            controller: 'CalendarCtrl'
+        })
+    ;
+}
 
-;
+function runApp($ionicPlatform, $state, amMoment, googleAnalyticsAbstraction) {
+
+    amMoment.changeLocale('pt-br');
+
+    $ionicPlatform.ready(appIsReady);
+
+    function appIsReady() {
+
+        //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
+        $state.go('login');
+    }
+}

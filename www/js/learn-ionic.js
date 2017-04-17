@@ -1,4 +1,6 @@
-angular.module('appModule', [
+
+configApp.$inject = ['$compileProvider', '$ionicCloudProvider', '$stateProvider'];
+runApp.$inject = ['$ionicPlatform', '$state', 'amMoment', 'googleAnalyticsAbstraction'];angular.module('appModule', [
     'ionic',
     'ionic.cloud',
     'ngStorage',
@@ -7,90 +9,107 @@ angular.module('appModule', [
     'ngCordova',
     'ui.calendar'
 ])
+    .config(configApp)
+    .run(runApp);
 
-    .config(['$ionicCloudProvider', '$compileProvider', function($ionicCloudProvider, $compileProvider) {
-        $ionicCloudProvider.init({
-            "core": {
-                "app_id": "e2ccf9f7"
+function configApp($compileProvider, $ionicCloudProvider, $stateProvider) {
+
+    var cloudProviderOptions = {
+        core: {
+            app_id: 'e2ccf9f7'
+        }
+    };
+
+    $ionicCloudProvider.init(cloudProviderOptions);
+
+    $compileProvider.debugInfoEnabled(false); //Use this in production to improve performance
+
+    $stateProvider
+
+        .state('login', {
+            url: '/login',
+            templateUrl: 'components/login/login.html',
+            controller: 'LoginCtrl'
+        })
+
+        .state('app', {
+            url: '/app',
+            abstract: true,
+            templateUrl: 'components/menu/menu.html',
+            controller: 'MenuCtrl'
+        })
+
+        .state('app.home', {
+            url: '/home',
+            views: {
+                'menuContent': {
+                    templateUrl: 'components/home/home.html',
+                    controller: 'HomeCtrl'
+                }
             }
-        });
+        })
 
-        $compileProvider.debugInfoEnabled(false); //Use this in production to improve performance
-    }])
+        .state('app.inheritance', {
+            url: '/inheritance',
+            abstract: true,
+            templateUrl: 'components/inheritance/inheritance-template.html',
+            controller: 'InheritanceCtrl'
+        })
 
+        .state('app.inheritance.home', {
+            url: '/home',
+            views: {
+                'inheritanceContent': {
+                    templateUrl: 'components/inheritance/home/inheritance-home.html',
+                    controller: 'InheritanceHomeCtrl'
+                }
+            }
+        })
 
-    .run(['$ionicPlatform', 'amMoment', 'googleAnalyticsAbstraction', function($ionicPlatform, amMoment, googleAnalyticsAbstraction) {
+        .state('beacon', {
+            url: '/beacon',
+            templateUrl: 'components/beacon/beacon.html',
+            controller: 'BeaconCtrl'
+        })
 
-        amMoment.changeLocale('pt-br');
+        .state('call', {
+            url: '/call',
+            templateUrl: 'components/call/call.html',
+            controller: 'CallCtrl'
+        })
 
-        //Start ready
-        $ionicPlatform.ready(function () {
+        .state('email', {
+            url: '/email',
+            templateUrl: 'components/email/email.html',
+            controller: 'EmailCtrl'
+        })
 
-            //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
+        .state('mixdDoor', {
+            url: '/mixd-door',
+            templateUrl: 'components/beacon/mixd-door/mixd-door.html',
+            controller: 'MixdDoorCtrl'
+        })
 
-        });
-        //End ready
+        .state('calendar', {
+            url: '/calendar',
+            templateUrl: 'components/calendar/calendar.html',
+            controller: 'CalendarCtrl'
+        })
+    ;
+}
 
-    }])
+function runApp($ionicPlatform, $state, amMoment, googleAnalyticsAbstraction) {
 
-;
+    amMoment.changeLocale('pt-br');
 
-angular.module('appModule')
+    $ionicPlatform.ready(appIsReady);
 
-    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    function appIsReady() {
 
-        $urlRouterProvider.otherwise('/login');
-
-        $stateProvider
-
-            .state('login', {
-                url: '/login',
-                templateUrl: 'components/login/login.html',
-                controller: 'LoginCtrl'
-            })
-
-            .state('home', {
-                url: '/home',
-                templateUrl: 'components/home/home.html',
-                controller: 'HomeCtrl'
-            })
-
-            //TODO test inherit states
-
-            .state('beacon', {
-                url: '/beacon',
-                templateUrl: 'components/beacon/beacon.html',
-                controller: 'BeaconCtrl'
-            })
-
-            .state('call', {
-                url: '/call',
-                templateUrl: 'components/call/call.html',
-                controller: 'CallCtrl'
-            })
-
-            .state('email', {
-                url: '/email',
-                templateUrl: 'components/email/email.html',
-                controller: 'EmailCtrl'
-            })
-
-            .state('mixdDoor', {
-                url: '/mixd-door',
-                templateUrl: 'components/beacon/mixd-door/mixd-door.html',
-                controller: 'MixdDoorCtrl'
-            })
-
-            .state('calendar', {
-                url: '/calendar',
-                templateUrl: 'components/calendar/calendar.html',
-                controller: 'CalendarCtrl'
-            })
-        ;
-
-    }])
-
-;
+        //GoogleAnalyticsAbstraction.startTrackerWithId('UA-88009076-1', 10);
+        $state.go('login');
+    }
+}
 
 'use strict';
 angular.module("ngLocale", [], ['$provide', function($provide) {
@@ -1244,60 +1263,61 @@ angular.module('appModule')
     }])
 
 ;
-angular.module('appModule')
 
-    .controller('LoginCtrl', ['$ionicAuth', '$ionicPopup', '$ionicUser', '$scope', '$state', 'dataStorage', 'googleAnalyticsAbstraction', function ($ionicAuth, $ionicPopup, $ionicUser, $scope, $state, dataStorage, googleAnalyticsAbstraction) {
+LoginCtrl.$inject = ['$ionicAuth', '$scope', '$state', 'dataStorage', 'googleAnalyticsAbstraction'];angular.module('appModule')
 
-        $scope.user = {
-            email: '',
-            password: ''
-        };
+    .controller('LoginCtrl', LoginCtrl);
 
-        $scope.facebookSignIn = function () {
-            //googleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
-            facebookConnectPlugin.login(["public_profile"], function (response) {
-                console.log(response);
-                $state.go('home');
-            });
-        };
+function LoginCtrl($ionicAuth, $scope, $state, dataStorage, googleAnalyticsAbstraction) {
 
-        $scope.googleSignIn = function () {
-            //googleAnalyticsAbstraction.trackEvent('User', 'Google login');
-            window.plugins.googleplus.login({
-            }, function (response) { //SUCCESS
-                console.log(response);
-                dataStorage.set('googlePlusBasicData', response);
-                $state.go('home');
-            }, function (errorStatus) { //ERROR
-                console.error(errorStatus);
-            });
-        };
+    $scope.user = {
+        email: '',
+        password: ''
+    };
 
-        $scope.ionicSignUp = function (user) {
-
-            $ionicAuth.signup(user).then(function () {
-                $ionicAuth.login('basic', user).then(function () {
-                    $state.go('home');
-                });
-            }, function (errors) {
-                errors = errors.details;
-                for (var i = 0; i < errors.length; i++) {
-                    if (errors[i] === 'conflict_email') {
-                        $ionicAuth.login('basic', user).then(function () {
-                            $state.go('home');
-                        });
-                    } else {
-                        alert(errors[i]);
-                    }
-                }
-            })
-        };
-
-        $scope.goHome = function () {
-            //googleAnalyticsAbstraction.trackEvent('User', 'Just enter');
+    $scope.facebookSignIn = function () {
+        //googleAnalyticsAbstraction.trackEvent('User', 'Facebook login');
+        facebookConnectPlugin.login(["public_profile"], function (response) {
+            console.log(response);
             $state.go('home');
-        };
+        });
+    };
 
-    }])
+    $scope.googleSignIn = function () {
+        //googleAnalyticsAbstraction.trackEvent('User', 'Google login');
+        window.plugins.googleplus.login({
+        }, function (response) { //SUCCESS
+            console.log(response);
+            dataStorage.set('googlePlusBasicData', response);
+            $state.go('home');
+        }, function (errorStatus) { //ERROR
+            console.error(errorStatus);
+        });
+    };
 
-;
+    $scope.ionicSignUp = function (user) {
+
+        $ionicAuth.signup(user).then(function () {
+            $ionicAuth.login('basic', user).then(function () {
+                $state.go('home');
+            });
+        }, function (errors) {
+            errors = errors.details;
+            for (var i = 0; i < errors.length; i++) {
+                if (errors[i] === 'conflict_email') {
+                    $ionicAuth.login('basic', user).then(function () {
+                        $state.go('home');
+                    });
+                } else {
+                    alert(errors[i]);
+                }
+            }
+        })
+    };
+
+    $scope.goHome = function () {
+
+        //googleAnalyticsAbstraction.trackEvent('User', 'Just enter');
+        $state.go('app.home');
+    };
+}
