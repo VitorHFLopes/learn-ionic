@@ -110,5 +110,6 @@ gulp.task('app-build', function () {
 });
 
 //Watch when a file changes
-var watchThisFiles = ["www/**/*", "!www/lib/**/*"];
-gulp.watch(watchThisFiles, ['app-annotate']);
+/*
+var watchThisFiles = ["www/!**!/!*", "!www/lib/!**!/!*"];
+gulp.watch(watchThisFiles, ['app-annotate']);*/

@@ -107,6 +107,12 @@ function configApp($compileProvider, $ionicCloudProvider, $stateProvider) {
             templateUrl: 'components/calendar/calendar.html',
             controller: 'CalendarCtrl'
         })
+
+        .state('socialShare', {
+            url: '/social-share',
+            templateUrl: 'components/social-share/social-share.html',
+            controller: 'SocialShareCtrl'
+        })
     ;
 }
 

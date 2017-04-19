@@ -52,8 +52,12 @@ function configApp($compileProvider, $ionicCloudProvider, $stateProvider) {
         .state('app.inheritance', {
             url: '/inheritance',
             abstract: true,
-            templateUrl: 'components/inheritance/inheritance-template.html',
-            controller: 'InheritanceCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'components/inheritance/inheritance-template.html',
+                    controller: 'InheritanceCtrl'
+                }
+            }
         })
 
         .state('app.inheritance.home', {
@@ -62,6 +66,16 @@ function configApp($compileProvider, $ionicCloudProvider, $stateProvider) {
                 'inheritanceContent': {
                     templateUrl: 'components/inheritance/home/inheritance-home.html',
                     controller: 'InheritanceHomeCtrl'
+                }
+            }
+        })
+
+        .state('app.inheritance.next', {
+            url: '/next',
+            views: {
+                'inheritanceContent': {
+                    templateUrl: 'components/inheritance/next/inheritance-next.html',
+                    controller: 'InheritanceNextCtrl'
                 }
             }
         })
