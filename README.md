@@ -1,25 +1,26 @@
-Ionic App Base
-=====================
+This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
-A starting project for Ionic that optionally supports using custom SCSS.
+## How to use this template
 
-## Using this project
+*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
 
-We recommend using the [Ionic CLI](https://github.com/driftyco/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
+To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
 
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
+### With the Ionic CLI:
 
-```bash
-$ npm install -g ionic
-```
-
-Then run: 
+Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
 
 ```bash
-$ ionic start myProject tabs
+$ sudo npm install -g ionic cordova
+$ ionic start mySideMenu sidemenu
 ```
 
-More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/driftyco/ionic-cli) repo.
+Then, to run it, cd into `mySideMenu` and run:
 
-## Issues
-Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/submit-issue/) to the main Ionic repository.
+```bash
+$ ionic cordova platform add ios
+$ ionic cordova run ios
+```
+
+Substitute ios for android if not on a Mac.
+

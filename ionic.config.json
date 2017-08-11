@@ -1,12 +1,5 @@
 {
-    "name": "learn-ionic",
-    "app_id": "e2ccf9f7",
-    "gulpStartupTasks": [
-        "sass",
-        "watch"
-    ],
-    "watchPatterns": [
-        "www/**/*",
-        "!www/lib/**/*"
-    ]
+  "name": "learn-ionic",
+  "app_id": "",
+  "type": "ionic-angular"
 }
